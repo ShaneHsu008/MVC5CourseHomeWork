@@ -19,6 +19,17 @@ namespace MVC5CourseHomeWork.Controllers
         {
             return View(db.客戶資料.ToList());
         }
+        [HttpGet]
+        public ActionResult Search(string name)
+        {
+            var 客戶資料 = db.客戶資料.AsQueryable();
+            if (!string.IsNullOrEmpty(name))
+            {
+                客戶資料 = 客戶資料.Where(a => a.客戶名稱.Contains(name));
+            }
+
+            return View("Index", 客戶資料);
+        }
 
         // GET: Information/Details/5
         public ActionResult Details(int? id)

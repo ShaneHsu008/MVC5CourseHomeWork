@@ -20,6 +20,17 @@ namespace MVC5CourseHomeWork.Controllers
             var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
             return View(客戶聯絡人.ToList());
         }
+        [HttpGet]
+        public ActionResult Search(string name)
+        {
+            var 客戶聯絡人 = db.客戶聯絡人.AsQueryable();
+            if (!string.IsNullOrEmpty(name))
+            {
+                客戶聯絡人 = 客戶聯絡人.Where(a => a.姓名.Contains(name));
+            }
+
+            return View("Index", 客戶聯絡人);
+        }
 
         // GET: ContactPerson/Details/5
         public ActionResult Details(int? id)

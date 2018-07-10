@@ -21,6 +21,18 @@ namespace MVC5CourseHomeWork.Controllers
             return View(客戶銀行資訊.ToList());
         }
 
+        [HttpGet]
+        public ActionResult Search(string bankName)
+        {
+            var 客戶銀行資訊 = db.客戶銀行資訊.AsQueryable();
+            if (!string.IsNullOrEmpty(bankName))
+            {
+                客戶銀行資訊 = 客戶銀行資訊.Where(a => a.銀行名稱.Contains(bankName));
+            }
+
+            return View("Index", 客戶銀行資訊);
+        }
+
         // GET: BankInformation/Details/5
         public ActionResult Details(int? id)
         {
