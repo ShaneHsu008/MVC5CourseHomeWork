@@ -31,6 +31,11 @@ namespace MVC5CourseHomeWork.Controllers
             return View("Index", 客戶資料);
         }
 
+        public ActionResult Count()
+        {
+            return View(db.客戶聯絡人及帳戶數量.ToList());
+        }
+
         // GET: Information/Details/5
         public ActionResult Details(int? id)
         {

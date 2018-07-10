@@ -28,5 +28,6 @@ namespace MVC5CourseHomeWork.Models
         public virtual DbSet<客戶資料> 客戶資料 { get; set; }
         public virtual DbSet<客戶銀行資訊> 客戶銀行資訊 { get; set; }
         public virtual DbSet<客戶聯絡人> 客戶聯絡人 { get; set; }
+        public virtual DbSet<客戶聯絡人及帳戶數量> 客戶聯絡人及帳戶數量 { get; set; }
     }
 }
