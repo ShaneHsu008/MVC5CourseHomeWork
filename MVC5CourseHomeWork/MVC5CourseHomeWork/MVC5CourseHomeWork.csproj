@@ -156,7 +156,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BankInformationController.cs" />
+    <Compile Include="Controllers\ContactPersonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -242,6 +245,21 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\ContactPerson\Create.cshtml" />
+    <Content Include="Views\ContactPerson\Delete.cshtml" />
+    <Content Include="Views\ContactPerson\Details.cshtml" />
+    <Content Include="Views\ContactPerson\Edit.cshtml" />
+    <Content Include="Views\ContactPerson\Index.cshtml" />
+    <Content Include="Views\Information\Create.cshtml" />
+    <Content Include="Views\Information\Delete.cshtml" />
+    <Content Include="Views\Information\Details.cshtml" />
+    <Content Include="Views\Information\Edit.cshtml" />
+    <Content Include="Views\Information\Index.cshtml" />
+    <Content Include="Views\BankInformation\Create.cshtml" />
+    <Content Include="Views\BankInformation\Delete.cshtml" />
+    <Content Include="Views\BankInformation\Details.cshtml" />
+    <Content Include="Views\BankInformation\Edit.cshtml" />
+    <Content Include="Views\BankInformation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
