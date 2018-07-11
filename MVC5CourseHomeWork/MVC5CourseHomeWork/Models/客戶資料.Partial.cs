@@ -18,12 +18,12 @@ namespace MVC5CourseHomeWork.Models
         [Required]
         public string 客戶名稱 { get; set; }
         
-        [StringLength(8, ErrorMessage="欄位長度不得大於 8 個字元")]
         [Required]
+        [StringLength(8, ErrorMessage="欄位長度不得大於 8 個字元")]
         public string 統一編號 { get; set; }
         
-        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
+        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string 電話 { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
@@ -34,7 +34,11 @@ namespace MVC5CourseHomeWork.Models
         
         [StringLength(250, ErrorMessage="欄位長度不得大於 250 個字元")]
         public string Email { get; set; }
-    
+
+        [Required]
+        [StringLength(250, ErrorMessage="欄位長度不得大於 250 個字元")]
+        public string 客戶分類 { get; set; }
+
         public virtual ICollection<客戶銀行資訊> 客戶銀行資訊 { get; set; }
         public virtual ICollection<客戶聯絡人> 客戶聯絡人 { get; set; }
     }
