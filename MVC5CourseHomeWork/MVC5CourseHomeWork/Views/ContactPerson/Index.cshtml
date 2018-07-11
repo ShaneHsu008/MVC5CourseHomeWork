@@ -13,6 +13,7 @@
 {
     <span>搜尋條件</span>
     @Html.TextBox("name", null, htmlAttributes: new { @placeholder = "請輸入姓名關鍵字" })
+    @Html.TextBox("jobTitle", null, htmlAttributes: new { @style = "margin:0 10px", placeholder = "請輸入職稱" })
     <input type="submit" value="Search" class="btn btn-default" />
 }
 <table class="table">

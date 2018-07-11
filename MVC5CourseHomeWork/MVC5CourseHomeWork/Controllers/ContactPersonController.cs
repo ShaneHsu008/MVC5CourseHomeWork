@@ -27,9 +27,9 @@ namespace MVC5CourseHomeWork.Controllers
             return View(客戶聯絡人.ToList());
         }
         [HttpGet]
-        public ActionResult Search(string name)
+        public ActionResult Search(string name, string jobTitle)
         {
-            var 客戶聯絡人 = repo.Search(name);
+            var 客戶聯絡人 = repo.Search(name, jobTitle);
 
             return View("Index", 客戶聯絡人);
         }
