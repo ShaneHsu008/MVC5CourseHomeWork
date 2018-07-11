@@ -30,11 +30,7 @@ namespace MVC5CourseHomeWork.Controllers
         [HttpGet]
         public ActionResult Search(string bankName)
         {
-            var 客戶銀行資訊 = repo.All().AsQueryable();
-            if (!string.IsNullOrEmpty(bankName))
-            {
-                客戶銀行資訊 = 客戶銀行資訊.Where(a => a.銀行名稱.Contains(bankName));
-            }
+            var 客戶銀行資訊  = repo.Search(bankName);
 
             return View("Index", 客戶銀行資訊);
         }

@@ -29,11 +29,7 @@ namespace MVC5CourseHomeWork.Controllers
         [HttpGet]
         public ActionResult Search(string name)
         {
-            var 客戶聯絡人 = repo.All().AsQueryable();
-            if (!string.IsNullOrEmpty(name))
-            {
-                客戶聯絡人 = 客戶聯絡人.Where(a => a.姓名.Contains(name));
-            }
+            var 客戶聯絡人 = repo.Search(name);
 
             return View("Index", 客戶聯絡人);
         }

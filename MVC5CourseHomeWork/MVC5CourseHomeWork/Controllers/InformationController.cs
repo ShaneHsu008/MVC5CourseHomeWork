@@ -28,15 +28,7 @@ namespace MVC5CourseHomeWork.Controllers
         [HttpGet]
         public ActionResult Search(string name,string classification)
         {
-            var 客戶資料 = repo.All();
-            if (!string.IsNullOrEmpty(name))
-            {
-                客戶資料 = 客戶資料.Where(a => a.客戶名稱.Contains(name));
-            }
-            if(!string.IsNullOrEmpty(classification))
-            {
-                客戶資料 = 客戶資料.Where(a => a.客戶分類 == classification);
-            }
+            var 客戶資料 = repo.Search(name, classification);
 
             return View("Index", 客戶資料);
         }

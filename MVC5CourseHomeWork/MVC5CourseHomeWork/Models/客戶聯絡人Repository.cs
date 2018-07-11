@@ -10,6 +10,16 @@ namespace MVC5CourseHomeWork.Models
         {
             return base.All().Where(a => a.是否已刪除 == false);
         }
+
+        internal IQueryable<客戶聯絡人> Search(string name)
+        {
+            var 客戶聯絡人 = this.All();
+            if (!string.IsNullOrEmpty(name))
+            {
+                客戶聯絡人 = 客戶聯絡人.Where(a => a.姓名.Contains(name));
+            }
+            return 客戶聯絡人;
+        }
     }
 
     public interface I客戶聯絡人Repository : IRepository<客戶聯絡人>
