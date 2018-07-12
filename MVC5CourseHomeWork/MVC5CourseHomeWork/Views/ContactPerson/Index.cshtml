@@ -16,6 +16,7 @@
     @Html.TextBox("jobTitle", null, htmlAttributes: new { @style = "margin:0 10px", placeholder = "請輸入職稱" })
     <input type="submit" value="Search" class="btn btn-default" />
 }
+<a href="@Url.Action("GetExcel", "ContactPerson")">匯出Excel</a>
 <table class="table">
     <tr>
         <th>

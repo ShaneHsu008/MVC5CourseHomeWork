@@ -16,6 +16,7 @@
     @Html.TextBox("bankName", null, htmlAttributes: new { @placeholder = "請輸入銀行名稱關鍵字" })
     <input type="submit" value="Search" class="btn btn-default" />
 }
+<a href="@Url.Action("GetExcel","BankInformation")">匯出Excel</a>
 <table class="table">
     <tr>
         <th>

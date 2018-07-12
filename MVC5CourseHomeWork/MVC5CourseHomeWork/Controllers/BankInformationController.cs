@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ClosedXML.Excel;
 using MVC5CourseHomeWork.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MVC5CourseHomeWork.Controllers
 {
@@ -30,7 +34,7 @@ namespace MVC5CourseHomeWork.Controllers
         [HttpGet]
         public ActionResult Search(string bankName)
         {
-            var 客戶銀行資訊  = repo.Search(bankName);
+            var 客戶銀行資訊 = repo.Search(bankName);
 
             return View("Index", 客戶銀行資訊);
         }
@@ -133,6 +137,63 @@ namespace MVC5CourseHomeWork.Controllers
             客戶銀行資訊.是否已刪除 = true;
             repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult GetExcel()
+        {
+            List<客戶銀行資訊> model = repo.All().ToList();
+
+            //將List轉成Json格式
+            var exportSource = GetExportList(model);
+            //再將json格式反序列化轉換成資料表
+            var dt = JsonConvert.DeserializeObject<DataTable>(exportSource.ToString());
+
+            string fileName = string.Concat("客戶銀行資訊", DateTime.Now.ToString("_yyyyMMddHHmmss"), ".xlsx");
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt, "Sheet1");
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(), "	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+            }
+        }
+
+        private JArray GetExportList(List<客戶銀行資訊> model)
+        {
+            JArray objects = new JArray();
+
+            if (model.Count > 0)
+            {
+                foreach (var item in model)
+                {
+                    var jo = new JObject();
+                    jo.Add("ID", item.Id);
+                    jo.Add("客戶Id", item.客戶Id);
+                    jo.Add("銀行名稱", item.銀行名稱);
+                    jo.Add("銀行代碼", item.銀行代碼);
+                    jo.Add("分行代碼", item.分行代碼);
+                    jo.Add("帳戶名稱", item.帳戶名稱);
+                    jo.Add("帳戶號碼", item.帳戶號碼);
+                    objects.Add(jo);
+                }
+            }
+            else
+            {
+                var jo = new JObject();
+                jo.Add("ID", string.Empty);
+                jo.Add("客戶Id", string.Empty);
+                jo.Add("銀行名稱", string.Empty);
+                jo.Add("銀行代碼", string.Empty);
+                jo.Add("分行代碼", string.Empty);
+                jo.Add("帳戶名稱", string.Empty);
+                jo.Add("帳戶號碼", string.Empty);
+                objects.Add(jo);
+            }
+
+            return objects;
         }
     }
 }
