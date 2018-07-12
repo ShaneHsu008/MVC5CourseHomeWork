@@ -26,5 +26,11 @@ namespace MVC5CourseHomeWork.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public ActionResult GetJson()
+        {
+            return Json(new { id=0,name="jay",say="Hi you see me."},JsonRequestBehavior.AllowGet);
+        }
     }
 }
