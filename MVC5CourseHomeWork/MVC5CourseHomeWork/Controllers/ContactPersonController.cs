@@ -69,6 +69,14 @@ namespace MVC5CourseHomeWork.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (repo.IsRepeatEmail(客戶聯絡人))
+                {
+                    //為了避免造成錯誤：具有索引鍵 '客戶Id' 的 ViewData 項目為 'System.Int32' 型別，但必須是 'IEnumerable<SelectListItem>' 型別
+                    ViewBag.客戶Id = new SelectList(repoInformation.All(), "Id", "客戶名稱", 客戶聯絡人.客戶Id);
+                    ModelState.AddModelError("Email", "同客戶下的聯絡人Email不可重複!");
+                    return View(客戶聯絡人);
+                }
+
                 repo.Add(客戶聯絡人);
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
