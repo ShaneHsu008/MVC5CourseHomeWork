@@ -11,6 +11,16 @@ namespace MVC5CourseHomeWork.Models
             return base.All().Where(a => a.是否已刪除 == false);
         }
 
+        public 客戶聯絡人 Find(int id)
+        {
+            return this.All().FirstOrDefault(a => a.Id == id);
+        }
+
+        public override void Delete(客戶聯絡人 entity)
+        {
+            entity.是否已刪除 = true;
+        }
+
         public bool IsRepeatEmail(客戶聯絡人 entity)
         {
             var chack = this.All().FirstOrDefault(a => a.客戶Id == entity.客戶Id);

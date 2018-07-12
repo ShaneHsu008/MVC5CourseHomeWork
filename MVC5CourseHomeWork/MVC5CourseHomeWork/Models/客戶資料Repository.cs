@@ -11,6 +11,16 @@ namespace MVC5CourseHomeWork.Models
             return base.All().Where(a => a.是否已刪除 == false);
         }
 
+        public 客戶資料 Find(int id)
+        {
+            return this.All().FirstOrDefault(a => a.Id == id);
+        }
+
+        public override void Delete(客戶資料 entity)
+        {
+            entity.是否已刪除 = true;
+        }
+
         internal IQueryable<客戶資料> Search(string name, string classification)
         {
             var 客戶資料 = this.All();

@@ -11,6 +11,16 @@ namespace MVC5CourseHomeWork.Models
             return base.All().Where(a => a.是否已刪除 == false);
         }
 
+        public 客戶銀行資訊 Find(int id)
+        {
+            return this.All().FirstOrDefault(a => a.Id == id);
+        }
+
+        public override void Delete(客戶銀行資訊 entity)
+        {
+            entity.是否已刪除 = true;
+        }
+
         internal IQueryable<客戶銀行資訊> Search(string bankName)
         {
             var 客戶銀行資訊 = this.All();

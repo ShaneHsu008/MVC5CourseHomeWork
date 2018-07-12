@@ -30,7 +30,7 @@ namespace MVC5CourseHomeWork.Controllers
             return View(repo.All().ToList());
         }
         [HttpGet]
-        public ActionResult Search(string name,string classification)
+        public ActionResult Search(string name, string classification)
         {
             var 客戶資料 = repo.Search(name, classification);
 
@@ -49,7 +49,7 @@ namespace MVC5CourseHomeWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶資料 客戶資料 = repo.All().FirstOrDefault(a => a.Id == id.Value);
+            客戶資料 客戶資料 = repo.Find(id.Value);
             if (客戶資料 == null)
             {
                 return HttpNotFound();
@@ -87,7 +87,7 @@ namespace MVC5CourseHomeWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶資料 客戶資料 = repo.All().FirstOrDefault(a => a.Id == id.Value);
+            客戶資料 客戶資料 = repo.Find(id.Value);
             if (客戶資料 == null)
             {
                 return HttpNotFound();
@@ -119,7 +119,7 @@ namespace MVC5CourseHomeWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶資料 客戶資料 = repo.All().FirstOrDefault(a => a.Id == id.Value);
+            客戶資料 客戶資料 = repo.Find(id.Value);
             if (客戶資料 == null)
             {
                 return HttpNotFound();
@@ -132,8 +132,7 @@ namespace MVC5CourseHomeWork.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            客戶資料 客戶資料 = repo.All().FirstOrDefault(a => a.Id == id);
-            客戶資料.是否已刪除 = true;
+            repo.Delete(repo.Find(id));
             repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }

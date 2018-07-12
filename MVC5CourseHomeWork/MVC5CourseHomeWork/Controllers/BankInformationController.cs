@@ -46,7 +46,7 @@ namespace MVC5CourseHomeWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var 客戶銀行資訊 = repo.All().FirstOrDefault(a => a.Id == id.Value);
+            var 客戶銀行資訊 = repo.Find(id.Value);
             if (客戶銀行資訊 == null)
             {
                 return HttpNotFound();
@@ -86,7 +86,7 @@ namespace MVC5CourseHomeWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var 客戶銀行資訊 = repo.All().FirstOrDefault(a => a.Id == id.Value);
+            var 客戶銀行資訊 = repo.Find(id.Value);
             if (客戶銀行資訊 == null)
             {
                 return HttpNotFound();
@@ -120,7 +120,7 @@ namespace MVC5CourseHomeWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var 客戶銀行資訊 = repo.All().FirstOrDefault(a => a.Id == id.Value);
+            var 客戶銀行資訊 = repo.Find(id.Value);
             if (客戶銀行資訊 == null)
             {
                 return HttpNotFound();
@@ -133,8 +133,7 @@ namespace MVC5CourseHomeWork.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var 客戶銀行資訊 = repo.All().FirstOrDefault(a => a.Id == id);
-            客戶銀行資訊.是否已刪除 = true;
+            repo.Delete(repo.Find(id));
             repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }
