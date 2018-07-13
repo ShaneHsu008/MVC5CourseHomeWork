@@ -21,21 +21,33 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.職稱)
+            @Html.ActionLink("↓", "Index", new { sortName = "職稱", sortOrder = "ASC" })
+            @Html.ActionLink("↑", "Index", new { sortName = "職稱", sortOrder = "DESC" })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.姓名)
+            @Html.ActionLink("↓", "Index", new { sortName = "姓名", sortOrder = "ASC" })
+            @Html.ActionLink("↑", "Index", new { sortName = "姓名", sortOrder = "DESC" })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
+            @Html.ActionLink("↓", "Index", new { sortName = "Email", sortOrder = "ASC" })
+            @Html.ActionLink("↑", "Index", new { sortName = "Email", sortOrder = "DESC" })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.手機)
+            @Html.ActionLink("↓", "Index", new { sortName = "手機", sortOrder = "ASC" })
+            @Html.ActionLink("↑", "Index", new { sortName = "手機", sortOrder = "DESC" })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.電話)
+            @Html.ActionLink("↓", "Index", new { sortName = "電話", sortOrder = "ASC" })
+            @Html.ActionLink("↑", "Index", new { sortName = "電話", sortOrder = "DESC" })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.客戶資料.客戶名稱)
+            @Html.ActionLink("↓", "Index", new { sortName = "客戶名稱", sortOrder = "ASC" })
+            @Html.ActionLink("↑", "Index", new { sortName = "客戶名稱", sortOrder = "DESC" })
         </th>
         <th></th>
     </tr>

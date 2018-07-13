@@ -25,9 +25,55 @@ namespace MVC5CourseHomeWork.Controllers
             repoCount = RepositoryHelper.Get客戶聯絡人及帳戶數量Repository(repo.UnitOfWork);
         }
         // GET: Information
-        public ActionResult Index()
+        public ActionResult Index(string sortName, string sortOrder)
         {
-            return View(repo.All().ToList());
+            var 客戶資料 = repo.All();
+            switch (sortName)
+            {
+                case "客戶名稱":
+                    if (sortOrder == "ASC")
+                        客戶資料 = 客戶資料.OrderBy(a => a.客戶名稱);
+                    else
+                        客戶資料 = 客戶資料.OrderByDescending(a => a.客戶名稱);
+                    break;
+                case "統一編號":
+                    if (sortOrder == "ASC")
+                        客戶資料 = 客戶資料.OrderBy(a => a.統一編號);
+                    else
+                        客戶資料 = 客戶資料.OrderByDescending(a => a.統一編號);
+                    break;
+                case "電話":
+                    if (sortOrder == "ASC")
+                        客戶資料 = 客戶資料.OrderBy(a => a.電話);
+                    else
+                        客戶資料 = 客戶資料.OrderByDescending(a => a.電話);
+                    break;
+                case "傳真":
+                    if (sortOrder == "ASC")
+                        客戶資料 = 客戶資料.OrderBy(a => a.傳真);
+                    else
+                        客戶資料 = 客戶資料.OrderByDescending(a => a.傳真);
+                    break;
+                case "地址":
+                    if (sortOrder == "ASC")
+                        客戶資料 = 客戶資料.OrderBy(a => a.地址);
+                    else
+                        客戶資料 = 客戶資料.OrderByDescending(a => a.地址);
+                    break;
+                case "Email":
+                    if (sortOrder == "ASC")
+                        客戶資料 = 客戶資料.OrderBy(a => a.Email);
+                    else
+                        客戶資料 = 客戶資料.OrderByDescending(a => a.Email);
+                    break;
+                case "客戶分類":
+                    if (sortOrder == "ASC")
+                        客戶資料 = 客戶資料.OrderBy(a => a.客戶分類);
+                    else
+                        客戶資料 = 客戶資料.OrderByDescending(a => a.客戶分類);
+                    break;
+            }
+            return View();
         }
         [HttpGet]
         public ActionResult Search(string name, string classification)

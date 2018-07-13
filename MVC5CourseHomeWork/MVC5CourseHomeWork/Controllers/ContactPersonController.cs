@@ -25,9 +25,48 @@ namespace MVC5CourseHomeWork.Controllers
             repoInformation = RepositoryHelper.Get客戶資料Repository(repo.UnitOfWork);
         }
         // GET: ContactPerson
-        public ActionResult Index()
+        public ActionResult Index(string sortName, string sortOrder)
         {
             var 客戶聯絡人 = repo.All().Include(客 => 客.客戶資料);
+            switch (sortName)
+            {
+                case "職稱":
+                    if (sortOrder == "ASC")
+                        客戶聯絡人 = 客戶聯絡人.OrderBy(a => a.職稱);
+                    else
+                        客戶聯絡人 = 客戶聯絡人.OrderByDescending(a => a.職稱);
+                    break;
+                case "姓名":
+                    if (sortOrder == "ASC")
+                        客戶聯絡人 = 客戶聯絡人.OrderBy(a => a.姓名);
+                    else
+                        客戶聯絡人 = 客戶聯絡人.OrderByDescending(a => a.姓名);
+                    break;
+                case "Email":
+                    if (sortOrder == "ASC")
+                        客戶聯絡人 = 客戶聯絡人.OrderBy(a => a.Email);
+                    else
+                        客戶聯絡人 = 客戶聯絡人.OrderByDescending(a => a.Email);
+                    break;
+                case "手機":
+                    if (sortOrder == "ASC")
+                        客戶聯絡人 = 客戶聯絡人.OrderBy(a => a.手機);
+                    else
+                        客戶聯絡人 = 客戶聯絡人.OrderByDescending(a => a.手機);
+                    break;
+                case "電話":
+                    if (sortOrder == "ASC")
+                        客戶聯絡人 = 客戶聯絡人.OrderBy(a => a.電話);
+                    else
+                        客戶聯絡人 = 客戶聯絡人.OrderByDescending(a => a.電話);
+                    break;
+                case "客戶名稱":
+                    if (sortOrder == "ASC")
+                        客戶聯絡人 = 客戶聯絡人.OrderBy(a => a.客戶資料.客戶名稱);
+                    else
+                        客戶聯絡人 = 客戶聯絡人.OrderByDescending(a => a.客戶資料.客戶名稱);
+                    break;
+            }
             return View(客戶聯絡人.ToList());
         }
         [HttpGet]
