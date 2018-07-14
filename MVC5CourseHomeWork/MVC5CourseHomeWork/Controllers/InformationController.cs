@@ -88,6 +88,23 @@ namespace MVC5CourseHomeWork.Controllers
             return View(repoCount.All().ToList());
         }
 
+        [HttpGet]
+        public ActionResult CountJson()
+        {
+            var countList = repoCount.All().ToList();
+
+            string result = "";
+           
+            if (countList == null)
+            {
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            result = JsonConvert.SerializeObject(countList);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Information/Details/5
         public ActionResult Details(int? id)
         {
