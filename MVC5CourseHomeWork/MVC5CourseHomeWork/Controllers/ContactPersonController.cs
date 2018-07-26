@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ClosedXML.Excel;
 using MVC5CourseHomeWork.Models;
+using MVC5CourseHomeWork.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -69,6 +70,30 @@ namespace MVC5CourseHomeWork.Controllers
             }
             return View(客戶聯絡人.ToList());
         }
+
+        [HttpPost]
+        public ActionResult BatchUpdate(客戶聯絡人BatchViewModel[] data)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var item in data)
+                {
+                    var 客戶聯絡人 = repo.Find(item.Id);
+                    客戶聯絡人.職稱 = item.職稱;
+                    客戶聯絡人.手機 = item.手機;
+                    客戶聯絡人.電話 = item.電話;
+                }
+
+                repo.UnitOfWork.Commit();
+
+                return RedirectToAction("Index");
+            }
+
+            ViewData.Model = repo.All();
+
+            return View("Index");
+        }
+
         [HttpGet]
         public ActionResult Search(string name, string jobTitle)
         {
