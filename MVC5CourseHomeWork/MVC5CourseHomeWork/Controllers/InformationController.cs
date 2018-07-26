@@ -73,7 +73,7 @@ namespace MVC5CourseHomeWork.Controllers
                         客戶資料 = 客戶資料.OrderByDescending(a => a.客戶分類);
                     break;
             }
-            return View();
+            return View(客戶資料);
         }
         [HttpGet]
         public ActionResult Search(string name, string classification)
