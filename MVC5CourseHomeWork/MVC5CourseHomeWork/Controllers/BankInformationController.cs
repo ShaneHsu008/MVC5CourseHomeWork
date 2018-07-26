@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace MVC5CourseHomeWork.Controllers
 {
+    [ActionTimer]
     public class BankInformationController : Controller
     {
         客戶銀行資訊Repository repo;

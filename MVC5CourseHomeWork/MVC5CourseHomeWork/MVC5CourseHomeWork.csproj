@@ -171,6 +171,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActionTimerAttribute.cs" />
     <Compile Include="Controllers\BankInformationController.cs" />
     <Compile Include="Controllers\ContactPersonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -334,6 +335,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ActionTimerAttribute\" />
+    <Folder Include="Views\ShareDataAttribute\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

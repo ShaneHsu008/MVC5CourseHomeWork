@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace MVC5CourseHomeWork.Controllers
 {
+    [ActionTimer]
     public class InformationController : Controller
     {
         private 客戶資料Repository repo;
@@ -24,7 +25,7 @@ namespace MVC5CourseHomeWork.Controllers
             repo = RepositoryHelper.Get客戶資料Repository();
             repoCount = RepositoryHelper.Get客戶聯絡人及帳戶數量Repository(repo.UnitOfWork);
         }
-        // GET: Information
+
         public ActionResult Index(string sortName, string sortOrder)
         {
             var 客戶資料 = repo.All();
@@ -94,7 +95,7 @@ namespace MVC5CourseHomeWork.Controllers
             var countList = repoCount.All().ToList();
 
             string result = "";
-           
+
             if (countList == null)
             {
                 return Json(result, JsonRequestBehavior.AllowGet);

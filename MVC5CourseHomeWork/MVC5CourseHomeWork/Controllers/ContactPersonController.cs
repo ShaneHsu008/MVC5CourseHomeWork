@@ -15,6 +15,7 @@ using Newtonsoft.Json.Linq;
 
 namespace MVC5CourseHomeWork.Controllers
 {
+    [ActionTimer]
     public class ContactPersonController : Controller
     {
         private 客戶聯絡人Repository repo;
