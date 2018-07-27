@@ -11,6 +11,7 @@ using ClosedXML.Excel;
 using MVC5CourseHomeWork.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using X.PagedList;
 
 namespace MVC5CourseHomeWork.Controllers
 {
@@ -19,6 +20,8 @@ namespace MVC5CourseHomeWork.Controllers
     {
         客戶銀行資訊Repository repo;
         客戶資料Repository repoInformation;
+        private int pageSize = 1;
+
         public BankInformationController()
         {
             repo = RepositoryHelper.Get客戶銀行資訊Repository();
@@ -26,10 +29,10 @@ namespace MVC5CourseHomeWork.Controllers
         }
 
         // GET: BankInformation
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            var 客戶銀行資訊 = repo.All().Include(客 => 客.客戶資料);
-            return View(客戶銀行資訊.ToList());
+            var 客戶銀行資訊 = repo.All().Include(客 => 客.客戶資料).OrderBy(銀 => 銀.客戶Id);
+            return View(客戶銀行資訊.ToPagedList(page, pageSize));
         }
 
         [HttpGet]

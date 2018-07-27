@@ -23,7 +23,7 @@ namespace MVC5CourseHomeWork.Models
 
         public bool IsRepeatEmail(客戶聯絡人 entity)
         {
-            var chack = this.All().FirstOrDefault(a => a.客戶Id == entity.客戶Id);
+            var chack = this.All().FirstOrDefault(a => a.客戶Id == entity.客戶Id && a.Email == entity.Email);
             if (chack != null)
                 return true;
 

@@ -12,6 +12,7 @@ using MVC5CourseHomeWork.Models;
 using MVC5CourseHomeWork.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using X.PagedList;
 
 namespace MVC5CourseHomeWork.Controllers
 {
@@ -20,6 +21,7 @@ namespace MVC5CourseHomeWork.Controllers
     {
         private 客戶聯絡人Repository repo;
         private 客戶資料Repository repoInformation;
+        private int pageSize = 3;
 
         public ContactPersonController()
         {
@@ -27,7 +29,7 @@ namespace MVC5CourseHomeWork.Controllers
             repoInformation = RepositoryHelper.Get客戶資料Repository(repo.UnitOfWork);
         }
         // GET: ContactPerson
-        public ActionResult Index(string sortName, string sortOrder)
+        public ActionResult Index(string sortName, string sortOrder, int page = 1)
         {
             var 客戶聯絡人 = repo.All().Include(客 => 客.客戶資料);
             switch (sortName)
@@ -68,8 +70,15 @@ namespace MVC5CourseHomeWork.Controllers
                     else
                         客戶聯絡人 = 客戶聯絡人.OrderByDescending(a => a.客戶資料.客戶名稱);
                     break;
+                default:
+                    客戶聯絡人 = 客戶聯絡人.OrderBy(a => a.職稱);
+                    break;
             }
-            return View(客戶聯絡人.ToList());
+
+            ViewBag.sortName = sortName;
+            ViewBag.sortOrder = sortOrder;
+
+            return View(客戶聯絡人.ToPagedList(page,pageSize));
         }
 
         [HttpPost]

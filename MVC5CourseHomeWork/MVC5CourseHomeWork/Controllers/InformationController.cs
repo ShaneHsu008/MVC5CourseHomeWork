@@ -11,6 +11,7 @@ using ClosedXML.Excel;
 using MVC5CourseHomeWork.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using X.PagedList;
 
 namespace MVC5CourseHomeWork.Controllers
 {
@@ -19,6 +20,7 @@ namespace MVC5CourseHomeWork.Controllers
     {
         private 客戶資料Repository repo;
         private 客戶聯絡人及帳戶數量Repository repoCount;
+        private int pageSize = 1;
 
         public InformationController()
         {
@@ -26,7 +28,7 @@ namespace MVC5CourseHomeWork.Controllers
             repoCount = RepositoryHelper.Get客戶聯絡人及帳戶數量Repository(repo.UnitOfWork);
         }
 
-        public ActionResult Index(string sortName, string sortOrder)
+        public ActionResult Index(string sortName, string sortOrder, int page = 1)
         {
             var 客戶資料 = repo.All();
             switch (sortName)
@@ -73,8 +75,15 @@ namespace MVC5CourseHomeWork.Controllers
                     else
                         客戶資料 = 客戶資料.OrderByDescending(a => a.客戶分類);
                     break;
+                default:
+                    客戶資料 = 客戶資料.OrderBy(a => a.客戶名稱);
+                    break;
             }
-            return View(客戶資料);
+
+            ViewBag.sortName = sortName;
+            ViewBag.sortOrder = sortOrder;
+            
+            return View(客戶資料.ToPagedList(page, pageSize));
         }
         [HttpGet]
         public ActionResult Search(string name, string classification)
@@ -114,10 +123,12 @@ namespace MVC5CourseHomeWork.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             客戶資料 客戶資料 = repo.Find(id.Value);
+
             if (客戶資料 == null)
             {
                 return HttpNotFound();
             }
+
             return View(客戶資料);
         }
 

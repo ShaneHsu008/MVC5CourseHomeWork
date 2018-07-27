@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<MVC5CourseHomeWork.Models.客戶銀行資訊>
+@using X.PagedList;
+@using X.PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -70,3 +72,4 @@
     }
 
 </table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
