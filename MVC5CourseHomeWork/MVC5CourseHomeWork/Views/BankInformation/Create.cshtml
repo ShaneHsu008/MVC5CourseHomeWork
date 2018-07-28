@@ -4,13 +4,17 @@
     ViewBag.Title = "Create";
 }
 
+@section breadcrumbLi {
+    <li><a href="#">客戶銀行資訊 新增</a></li>
+}
+
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>客戶銀行資訊</h4>
         <hr />

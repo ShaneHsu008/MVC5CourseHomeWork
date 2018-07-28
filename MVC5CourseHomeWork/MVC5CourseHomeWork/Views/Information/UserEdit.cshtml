@@ -3,6 +3,10 @@
     ViewBag.Title = "修改資料";
 }
 
+@section breadcrumbLi {
+    <li><a href="#">客戶資料 修改資料</a></li>
+}
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

@@ -4,6 +4,10 @@
     ViewBag.Title = "Delete";
 }
 
+@section breadcrumbLi {
+    <li><a href="#">客戶聯絡人 刪除</a></li>
+}
+
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -61,7 +65,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

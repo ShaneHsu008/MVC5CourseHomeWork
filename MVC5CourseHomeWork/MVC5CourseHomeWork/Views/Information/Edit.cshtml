@@ -4,8 +4,11 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+@section breadcrumbLi {
+    <li><a href="#">客戶資料 編輯</a></li>
+}
 
+<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
