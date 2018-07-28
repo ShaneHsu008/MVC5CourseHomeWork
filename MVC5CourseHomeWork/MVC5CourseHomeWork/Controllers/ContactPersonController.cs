@@ -16,8 +16,7 @@ using X.PagedList;
 
 namespace MVC5CourseHomeWork.Controllers
 {
-    [ActionTimer]
-    public class ContactPersonController : Controller
+    public class ContactPersonController : BaseController
     {
         private 客戶聯絡人Repository repo;
         private 客戶資料Repository repoInformation;

@@ -15,8 +15,7 @@ using X.PagedList;
 
 namespace MVC5CourseHomeWork.Controllers
 {
-    [ActionTimer]
-    public class InformationController : Controller
+    public class InformationController : BaseController
     {
         private 客戶資料Repository repo;
         private 客戶聯絡人及帳戶數量Repository repoCount;
@@ -82,7 +81,7 @@ namespace MVC5CourseHomeWork.Controllers
 
             ViewBag.sortName = sortName;
             ViewBag.sortOrder = sortOrder;
-            
+
             return View(客戶資料.ToPagedList(page, pageSize));
         }
         [HttpGet]

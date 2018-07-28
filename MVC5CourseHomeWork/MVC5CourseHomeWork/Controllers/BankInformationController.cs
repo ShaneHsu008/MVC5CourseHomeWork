@@ -15,8 +15,7 @@ using X.PagedList;
 
 namespace MVC5CourseHomeWork.Controllers
 {
-    [ActionTimer]
-    public class BankInformationController : Controller
+    public class BankInformationController : BaseController
     {
         客戶銀行資訊Repository repo;
         客戶資料Repository repoInformation;

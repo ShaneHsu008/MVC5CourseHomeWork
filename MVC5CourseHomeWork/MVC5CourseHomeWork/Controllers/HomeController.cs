@@ -6,8 +6,7 @@ using System.Web.Mvc;
 
 namespace MVC5CourseHomeWork.Controllers
 {
-    [ActionTimer]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {

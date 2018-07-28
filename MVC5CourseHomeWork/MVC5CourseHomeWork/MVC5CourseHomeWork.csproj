@@ -177,8 +177,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActionTimerAttribute.cs" />
     <Compile Include="Controllers\BankInformationController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactPersonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformationController.cs" />
@@ -256,6 +258,7 @@
       <DependentUpon>IRepository.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\客戶聯絡人BatchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -338,10 +341,11 @@
     <Content Include="Views\BankInformation\Edit.cshtml" />
     <Content Include="Views\BankInformation\Index.cshtml" />
     <Content Include="Views\Information\Count.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ActionTimerAttribute\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ShareDataAttribute\" />
   </ItemGroup>

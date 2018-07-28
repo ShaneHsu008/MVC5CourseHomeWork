@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using MVC5CourseHomeWork.ViewModels;
+using System.Web.Security;
 
 namespace MVC5CourseHomeWork.Models
 {
@@ -33,6 +35,20 @@ namespace MVC5CourseHomeWork.Models
                 客戶資料 = 客戶資料.Where(a => a.客戶分類 == classification);
             }
             return 客戶資料;
+        }
+
+        internal bool CheckUser(LoginViewModel model)
+        {
+            string passworld = FormsAuthentication.HashPasswordForStoringInConfigFile(model.密碼, "SHA1");
+
+            var 客戶資料 = this.All().FirstOrDefault(a => a.帳號 == model.帳號 && a.密碼 == passworld);
+
+            if (客戶資料 != null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 
