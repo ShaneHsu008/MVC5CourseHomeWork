@@ -50,6 +50,11 @@ namespace MVC5CourseHomeWork.Models
 
             return false;
         }
+
+        internal 客戶資料 GetUserData(string user)
+        {
+            return this.All().FirstOrDefault(a => a.帳號 == user);
+        }
     }
 
     public interface I客戶資料Repository : IRepository<客戶資料>

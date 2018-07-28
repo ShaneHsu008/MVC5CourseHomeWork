@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
+<h1>@ViewBag.Message</h1>
 
 @using (Html.BeginForm("Login", "account", FormMethod.Post, new { @class = "form-signin" }))
 {

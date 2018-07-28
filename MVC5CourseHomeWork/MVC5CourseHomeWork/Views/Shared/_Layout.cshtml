@@ -22,9 +22,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("首頁", "Index", "Home")</li>
-                    <li>@Html.ActionLink("客戶聯絡人", "Index", "ContactPerson")</li>
-                    <li>@Html.ActionLink("客戶資料", "Index", "Information")</li>
-                    <li>@Html.ActionLink("客戶銀行帳戶", "Index", "BankInformation")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("客戶聯絡人", "Index", "ContactPerson")</li>
+                        <li>@Html.ActionLink("客戶資料", "Index", "Information")</li>
+                        <li>@Html.ActionLink("客戶銀行帳戶", "Index", "BankInformation")</li>
+                    }
+                    <li>@Html.ActionLink("修改客戶資料", "UserEdit", "Information")</li>
                     <li>
                         <a href="@Url.Action("Logout", "Account")"><i class="icon-off"></i> 登出</a>
                     </li>

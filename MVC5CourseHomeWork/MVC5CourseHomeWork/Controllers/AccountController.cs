@@ -46,9 +46,9 @@ namespace MVC5CourseHomeWork.Controllers
             }
 
             userData = "一般使用者";
-            CreateTicketCookie(model.帳號,userData);
+            CreateTicketCookie(model.帳號, userData);
 
-            return RedirectToAction("Edit", "Users");
+            return RedirectToAction("Index", "Home");
         }
 
         private void CreateTicketCookie(string account, string userData)

@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ClosedXML.Excel;
 using MVC5CourseHomeWork.Models;
+using MVC5CourseHomeWork.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using X.PagedList;
 
 namespace MVC5CourseHomeWork.Controllers
 {
-    public class InformationController : BaseController
+    public class InformationController : Controller
     {
         private 客戶資料Repository repo;
         private 客戶聯絡人及帳戶數量Repository repoCount;
@@ -27,6 +30,7 @@ namespace MVC5CourseHomeWork.Controllers
             repoCount = RepositoryHelper.Get客戶聯絡人及帳戶數量Repository(repo.UnitOfWork);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(string sortName, string sortOrder, int page = 1)
         {
             var 客戶資料 = repo.All();
@@ -84,7 +88,9 @@ namespace MVC5CourseHomeWork.Controllers
 
             return View(客戶資料.ToPagedList(page, pageSize));
         }
+
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Search(string name, string classification)
         {
             var 客戶資料 = repo.Search(name, classification);
@@ -92,12 +98,14 @@ namespace MVC5CourseHomeWork.Controllers
             return View("Index", 客戶資料);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Count()
         {
             return View(repoCount.All().ToList());
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult CountJson()
         {
             var countList = repoCount.All().ToList();
@@ -115,6 +123,7 @@ namespace MVC5CourseHomeWork.Controllers
         }
 
         // GET: Information/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -132,6 +141,7 @@ namespace MVC5CourseHomeWork.Controllers
         }
 
         // GET: Information/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -142,6 +152,7 @@ namespace MVC5CourseHomeWork.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email,客戶分類")] 客戶資料 客戶資料)
         {
             if (ModelState.IsValid)
@@ -155,6 +166,7 @@ namespace MVC5CourseHomeWork.Controllers
         }
 
         // GET: Information/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -174,12 +186,14 @@ namespace MVC5CourseHomeWork.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email,客戶分類")] 客戶資料 客戶資料)
+        [Authorize(Roles = "Admin")]
+        [HandleError(ExceptionType = typeof(DbEntityValidationException), View = "Error_DbEntityValidationException")]
+        public ActionResult Edit(AdminEdit客戶資料VM model)
         {
-            if (ModelState.IsValid)
+            var 客戶資料 = repo.Find(model.Id);
+            if (TryUpdateModel(客戶資料, new string[] { "客戶名稱", "統一編號", "電話", "傳真", "地址", "Email", "客戶分類" })
+                && ModelState.IsValid)
             {
-                var db = repo.UnitOfWork.Context;
-                db.Entry(客戶資料).State = EntityState.Modified;
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
@@ -187,6 +201,7 @@ namespace MVC5CourseHomeWork.Controllers
         }
 
         // GET: Information/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -204,6 +219,7 @@ namespace MVC5CourseHomeWork.Controllers
         // POST: Information/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             repo.Delete(repo.Find(id));
@@ -211,6 +227,7 @@ namespace MVC5CourseHomeWork.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult GetExcel()
         {
             List<客戶資料> model = repo.All().ToList();
@@ -233,6 +250,7 @@ namespace MVC5CourseHomeWork.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         private JArray GetExportList(List<客戶資料> model)
         {
             JArray objects = new JArray();
@@ -268,6 +286,35 @@ namespace MVC5CourseHomeWork.Controllers
             }
 
             return objects;
+        }
+
+        [Authorize(Roles = "一般使用者")]
+        public ActionResult UserEdit()
+        {
+            string user = HttpContext.User.Identity.Name;
+            var result = repo.GetUserData(user);
+
+            return View(result);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "一般使用者")]
+        public ActionResult UserEdit(UserEdit客戶資料VM model)
+        {
+            var 客戶資料 = repo.Find(model.Id);
+
+            if (TryUpdateModel(客戶資料, new string[] { "電話", "傳真", "地址", "Email", "密碼" })
+                && ModelState.IsValid)
+            {
+                客戶資料.密碼 = FormsAuthentication.HashPasswordForStoringInConfigFile(model.密碼, "SHA1");
+                repo.UnitOfWork.Commit();
+
+                FormsAuthentication.SignOut();
+
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(客戶資料);
         }
     }
 }

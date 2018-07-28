@@ -1,21 +1,18 @@
-namespace MVC5CourseHomeWork.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace MVC5CourseHomeWork.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    [MetadataType(typeof(客戶資料MetaData))]
-    public partial class 客戶資料
-    {
-    }
-
-    public partial class 客戶資料MetaData
+    public class AdminEdit客戶資料VM
     {
         [Required]
         public int Id { get; set; }
 
-        [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
         [Required]
+        [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
         public string 客戶名稱 { get; set; }
 
         [Required]
@@ -38,16 +35,5 @@ namespace MVC5CourseHomeWork.Models
         [Required]
         [StringLength(250, ErrorMessage = "欄位長度不得大於 250 個字元")]
         public string 客戶分類 { get; set; }
-
-        [Required]
-        [StringLength(50, ErrorMessage = "帳號不得大於 50 個字元")]
-        public string 帳號 { get; set; }
-
-        [Required]
-        [StringLength(50, ErrorMessage = "密碼不得大於 50 個字元")]
-        public string 密碼 { get; set; }
-
-        public virtual ICollection<客戶銀行資訊> 客戶銀行資訊 { get; set; }
-        public virtual ICollection<客戶聯絡人> 客戶聯絡人 { get; set; }
     }
 }
